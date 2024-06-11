@@ -49,15 +49,12 @@ exports.createUser = (req, res, next) => {
 //update user
 exports.updateUser = (req, res, next) => {
   const userId = req.params.userId;
-  const updatedName = req.body.name;
-  const updatedEmail = req.body.email;
   User.findByPk(userId)
     .then(user => {
       if (!user) {
         return res.status(404).json({ message: 'User Does Not Exist!' });
       }
-      user.name = updatedName;
-      user.email = updatedEmail;
+      user = request.body;
       return user.save();
     })
     .then(result => {
