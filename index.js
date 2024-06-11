@@ -14,7 +14,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
+// auth routes
+app.use("/api", require("./middleware/auth"));
 
 //CRUD routes
 app.use('/users', require('./routes/index'));

@@ -26,11 +26,13 @@ exports.getUser = (req, res, next) => {
 
 //create user
 exports.createUser = (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
+  const {name, email, phone, isAdmin, password} = req.body;
+
   User.create({
     name: name,
-    email: email
+    email: email,
+    phone: phone,
+    isAdmin: isAdmin
   })
     .then(result => {
       console.log('Created User');

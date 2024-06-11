@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 User.beforeCreate(async (user, options) => {
     const salt = await bcrypt.genSalt();
     user.password = await bcrypt.hash(user.password, salt);
