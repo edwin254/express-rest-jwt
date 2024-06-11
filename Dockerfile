@@ -10,6 +10,7 @@ RUN npm ci
 
 COPY . /usr/src/app
 
-RUN npm run build
+# RUN npm start
 
-CMD ./scripts/start.sh
+CMD [ "node", "index.js" ]
+# CMD ./scripts/start.sh

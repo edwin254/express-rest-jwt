@@ -9,11 +9,24 @@ services:
       - postgres
     ports:
       - "3000:3000"
-
-  postgres:
-    image: postgres
-    restart: always
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test123
+      PG_HOST: postgres_db
+
+  postgres:
+    image: postgres
+    restart: always
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test123
+    volumes:
+      - node_db_data:/var/lib/postgresql/data
+
+volumes:
+  node_db_data: {}
