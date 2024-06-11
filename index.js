@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const sequelize = require('./services/db');
-const User = require('./models/user');
 
 const app = express();
 
@@ -14,8 +13,10 @@ app.use((req, res, next) => {
   next();
 });
 
+
 // auth routes
-app.use("/api", require("./middleware/auth"));
+
+app.use('/', require('./routes/auth'));
 
 //CRUD routes
 app.use('/users', require('./routes/index'));

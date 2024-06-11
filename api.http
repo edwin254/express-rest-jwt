@@ -1,0 +1,38 @@
+GET http://localhost:3000/ping
+
+###
+POST http://localhost:3000/users/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlZHVAdGVzdC5jb20iLCJpYXQiOjE3MTgxNDc1NDEsImV4cCI6MTcxODE1MTE0MX0.Wmqp-mIuvovVyYEsIAQGtDjc0NtURWjt7P_HsbuAvMM"
+
+{
+    "name": "sample",
+    "email": "edu@test.com",
+    "phone": "0722345556",
+    "isAdmin": true,
+    "password": "jhdhskdsjdk"
+
+}
+
+###
+
+GET http://localhost:3000/users
+
+###
+GET http://localhost:3000/auth
+
+###
+
+DELETE  http://localhost:3000/users/1
+
+###
+
+POST http://localhost:3000/login/ HTTP/1.1
+content-type: application/json
+
+{
+    "email": "edu@test.com",
+    "password": "jhdhskdsjdk"
+
+}
+

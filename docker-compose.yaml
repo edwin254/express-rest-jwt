@@ -14,6 +14,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: test123
       PG_HOST: postgres_db
+      secretKey: 34444
 
   postgres:
     image: postgres

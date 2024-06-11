@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 // CRUD Controllers
 
@@ -13,7 +14,7 @@ exports.getUsers = (req, res, next) => {
 
 //get user by id
 exports.getUser = (req, res, next) => {
-    const userId = req.params.userId;
+    const userId = req.params.id;
     User.findByPk(userId)
         .then(user => {
             if (!user) {
@@ -27,12 +28,14 @@ exports.getUser = (req, res, next) => {
 //create user
 exports.createUser = (req, res, next) => {
   const {name, email, phone, isAdmin, password} = req.body;
+  const salt = bcrypt.genSaltSync();
 
   User.create({
     name: name,
     email: email,
     phone: phone,
-    isAdmin: isAdmin
+    isAdmin: isAdmin,
+    password: bcrypt.hashSync(password, salt)
   })
     .then(result => {
       console.log('Created User');
@@ -66,6 +69,7 @@ exports.updateUser = (req, res, next) => {
 //delete user
 exports.deleteUser = (req, res, next) => {
   const userId = req.params.userId;
+  console.log("USERIS",userId)
   User.findByPk(userId)
     .then(user => {
       if (!user) {

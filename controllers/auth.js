@@ -1,16 +1,23 @@
-const User = require('./models/user');
+const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Login route
-app.post('/login', async (req, res) => {
+exports.Login = async (req, res, next) => {
     const { email, password } = req.body;
-    const user = User.find(u => u.email === email);
+    const user = await User.findOne(
+        { where: { email: email },}
+    )
+    const password_valid = await bcrypt.compare(password,user.password);
   
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).send('Invalid email or Paaword');
+    if (!user || !password_valid) {
+        return res.status(401).send('Invalid email or Password');
     }
   
     // Generate JWT 
-    const token = jwt.sign({ userId: user.email }, secretKey, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.email }, process.env.secretKey, { expiresIn: '1h' });
   
-    res.status(200).send({ token });
-  });
+    return res.status(200).send({ token });
+
+
+  };
